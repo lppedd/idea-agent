@@ -1,0 +1,4 @@
+Premain-Class: com.github.lppedd.agent.IdeaAgent
+Can-Redefine-Classes: true
+Can-Retransform-Classes: true
+Class-Path: ./lib/asm-9.0.jar

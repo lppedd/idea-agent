@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+}
+
+group 'com.github.lppedd'
+version '0.1.0'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://www.jetbrains.com/intellij-repository/releases' }
+    maven { url 'https://www.jetbrains.com/intellij-repository/snapshots' }
+    maven { url 'https://dl.bintray.com/jetbrains/intellij-third-party-dependencies' }
+}
+
+dependencies {
+    implementation 'org.ow2.asm:asm:9.0'
+    compileOnly 'org.jetbrains:annotations:20.1.0'
+}
+
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+
+task copyDependencies(type: Copy) {
+    into "${buildDir}/libs/lib"
+    from configurations.runtimeClasspath
+}
+
+jar {
+    dependsOn(copyDependencies)
+
+    manifest {
+        from 'src/main/resources/META-INF/manifest.mf'
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
